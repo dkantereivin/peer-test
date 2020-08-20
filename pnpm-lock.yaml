@@ -1,5 +1,8 @@
 dependencies:
+  axios: 0.19.2
   core-js: 3.6.5
+  peerjs: 1.3.1
+  uuid: 8.3.0
   vue: 2.6.12
 devDependencies:
   '@vue/cli-plugin-babel': 4.5.4_11572a16ec91bca92af796b47f1f67c6
@@ -1155,6 +1158,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-aaI6OtKcrwCX8G7aWbNh7i8GOfY=
+  /@types/node/10.17.28:
+    dev: false
+    resolution:
+      integrity: sha512-dzjES1Egb4c1a89C7lKwQh8pwjYmlOAG9dW1pBgxEk57tMrLnssOfEthz8kdkNaBd7lIqQx7APm5+mZ619IiCQ==
   /@types/node/14.6.0:
     dev: true
     resolution:
@@ -1933,6 +1940,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-zg7Hz2k5lI8kb7U32998pRRFin7zJlkfezGJjUc2heaD4Pw2wObakCDVzkKztTm/Ln7eiVvYsjqak0Ed4LkMDA==
+  /axios/0.19.2:
+    dependencies:
+      follow-redirects: 1.5.10
+    dev: false
+    resolution:
+      integrity: sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
   /babel-loader/8.1.0_fbab4801791d746d265885e0d19f0bda:
     dependencies:
       '@babel/core': 7.11.4
@@ -3040,6 +3053,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
+  /debug/3.1.0:
+    dependencies:
+      ms: 2.0.0
+    dev: false
+    resolution:
+      integrity: sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
   /debug/3.2.6:
     dependencies:
       ms: 2.1.2
@@ -3491,6 +3510,10 @@ packages:
       node: '>=4.0.0'
     resolution:
       integrity: sha512-z7IyloorXvKbFx9Bpie2+vMJKKx1fH1EN5yiTfp8CiLOTptSYy1g8H4yDpGlEdshL1PBiFtBHepF2cNsqeEeFQ==
+  /eventemitter3/3.1.2:
+    dev: false
+    resolution:
+      integrity: sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
   /eventemitter3/4.0.4:
     dev: true
     resolution:
@@ -3788,6 +3811,14 @@ packages:
       node: '>=4.0'
     resolution:
       integrity: sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
+  /follow-redirects/1.5.10:
+    dependencies:
+      debug: 3.1.0
+    dev: false
+    engines:
+      node: '>=4.0'
+    resolution:
+      integrity: sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==
   /for-in/1.0.2:
     dev: true
     engines:
@@ -5358,7 +5389,6 @@ packages:
     resolution:
       integrity: sha1-viwAX9oy4LKa8fBdfEszIUxwH5I=
   /ms/2.0.0:
-    dev: true
     resolution:
       integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
   /ms/2.1.1:
@@ -5926,6 +5956,19 @@ packages:
       node: '>=0.12'
     resolution:
       integrity: sha512-4Ejy1OPxi9f2tt1rRV7Go7zmfDQ+ZectEQz3VGUQhgq62HtIRPDyG/JtnwIxs6x3uNMwo2V7q1fMvKjb+Tnpqg==
+  /peerjs-js-binarypack/1.0.1:
+    dev: false
+    resolution:
+      integrity: sha512-N6aeia3NhdpV7kiGxJV5xQiZZCVEEVjRz2T2C6UZQiBkHWHzUv/oWA4myQLcwBwO8LUoR1KWW5oStvwVesmfCg==
+  /peerjs/1.3.1:
+    dependencies:
+      '@types/node': 10.17.28
+      eventemitter3: 3.1.2
+      peerjs-js-binarypack: 1.0.1
+      webrtc-adapter: 7.7.0
+    dev: false
+    resolution:
+      integrity: sha512-V76SNqSyPNf4mZviGOkjOo3GpwJZ8DHXyaPE3tlzU5hFzwWqceMFs/4w/9mzNJtKUVU2yXBZCU54xl7JVChGXQ==
   /performance-now/2.1.0:
     dev: true
     resolution:
@@ -6809,6 +6852,15 @@ packages:
     dev: true
     resolution:
       integrity: sha512-ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==
+  /rtcpeerconnection-shim/1.2.15:
+    dependencies:
+      sdp: 2.12.0
+    dev: false
+    engines:
+      node: '>=6.0.0'
+      npm: '>=3.10.0'
+    resolution:
+      integrity: sha512-C6DxhXt7bssQ1nHb154lqeL0SXz5Dx4RczXZu2Aa/L1NJFnEVDxFwCBo3fqtuljhHIGceg5JKBV4XJ0gW5JKyw==
   /run-queue/1.0.3:
     dependencies:
       aproba: 1.2.0
@@ -6857,6 +6909,10 @@ packages:
       node: '>= 8.9.0'
     resolution:
       integrity: sha512-0ilKFI6QQF5nxDZLFn2dMjvc4hjg/Wkg7rHd3jK6/A4a1Hl9VFdQWvgB1UMGoU94pad1P/8N7fMcEnLnSiju8A==
+  /sdp/2.12.0:
+    dev: false
+    resolution:
+      integrity: sha512-jhXqQAQVM+8Xj5EjJGVweuEzgtGWb3tmEEpl3CLP3cStInSbVHSg0QWOGQzNq8pSID4JkpeV2mPqlMDLrm0/Vw==
   /select-hose/2.0.0:
     dev: true
     resolution:
@@ -7861,6 +7917,11 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+  /uuid/8.3.0:
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-fX6Z5o4m6XsXBdli9g7DtWgAx+osMsRRZFKma1mIUsLCz6vRvv+pz5VNbyu9UEDzpMWulZfvpgb/cmDXVulYFQ==
   /validate-npm-package-license/3.0.4:
     dependencies:
       spdx-correct: 3.1.1
@@ -8140,6 +8201,16 @@ packages:
         optional: true
     resolution:
       integrity: sha512-4UOGAohv/VGUNQJstzEywwNxqX417FnjZgZJpJQegddzPmTvph37eBIRbRTfdySXzVtJXLJfbMN3mMYhM6GdmQ==
+  /webrtc-adapter/7.7.0:
+    dependencies:
+      rtcpeerconnection-shim: 1.2.15
+      sdp: 2.12.0
+    dev: false
+    engines:
+      node: '>=6.0.0'
+      npm: '>=3.10.0'
+    resolution:
+      integrity: sha512-7Bp9OBnx642oJRkom1tNAbeJjUadAq2rh5xLL9YXPw5hVyt2h4hHr5bcoPYDs1stp/mZHSPSQA34YISdnr0DBQ==
   /websocket-driver/0.6.5:
     dependencies:
       websocket-extensions: 0.1.4
@@ -8294,6 +8365,9 @@ packages:
 specifiers:
   '@vue/cli-plugin-babel': ~4.5.0
   '@vue/cli-service': ~4.5.0
+  axios: ^0.19.2
   core-js: ^3.6.5
+  peerjs: ^1.3.1
+  uuid: ^8.3.0
   vue: ^2.6.11
   vue-template-compiler: ^2.6.11
