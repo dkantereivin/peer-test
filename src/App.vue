@@ -13,6 +13,9 @@
                 <video class="remote-video" autoplay/>
                 <video class="local-video" autoplay muted/>
             </div>
+            <div class="peer-box">
+                <p v-for="peer in connectedPeers" :key="peer" v-if="peer !== peerID">{{peer}}</p>
+            </div>
         </div>
     </div>
 </template>
@@ -32,7 +35,6 @@ export default {
     components: {},
     async created() {
         this.peerID = await this.getUniqueID();
-        console.log(this.peerID);
         this.connectPeer();
     },
     data: () => ({
@@ -48,7 +50,7 @@ export default {
             const res = await axios.get(url);
             return res.data;
         },
-        async getConnectedPeers() {
+        async getConnectedPeers(){
             const url = `http://${CONN_DETAILS.host}:${CONN_DETAILS.port}/${CONN_DETAILS.key}/peers`;
             const res = await axios.get(url);
             return res.data;
@@ -59,14 +61,13 @@ export default {
                 debug: 3
             });
 
-            const timer = setInterval(checkConnection, 2000);
-
             const checkConnection = async () => {
                 if (peer.disconnected)
                     peer.reconnect();
-                else
-                    this.connectedPeers = await this.getConnectedPeers();
+                this.connectedPeers = await this.getConnectedPeers();
             }
+
+            const timer = setInterval(checkConnection, 2000);
 
             peer.on('open', id => {
                 this.status = 'Standing By For Connections.';
@@ -79,6 +80,10 @@ export default {
             peer.on('disconnected', () => {
                 this.status = 'Disconnected.';
             });
+
+            window.addEventListener('beforeunload', (e) => {
+                peer.disconnect();
+            }, false)
         }
     }
 }
