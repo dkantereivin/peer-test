@@ -8,13 +8,13 @@
                 Target Unique ID
                 <input type="text" v-model="targetID"/>
             </label>
-            <button>Connect</button>
+            <button @click="connectToPeer(targetID)">Connect</button>
             <div class="call-container">
-                <video class="remote-video" autoplay/>
-                <video class="local-video" autoplay muted/>
+                <video id="remote-video" autoplay height="400px"/>
+                <video id="local-video" autoplay height="200px" muted/>
             </div>
             <div class="peer-box">
-                <p v-for="peer in connectedPeers" :key="peer" v-if="peer !== peerID">{{peer}}</p>
+                <p v-for="peer in connectedPeers" :key="peer" v-if="peer !== peerID">{{ peer }}</p>
             </div>
         </div>
     </div>
@@ -35,11 +35,25 @@ export default {
     components: {},
     async created() {
         this.peerID = await this.getUniqueID();
-        this.connectPeer();
+
+        this.getLocalMedia({
+            success: (stream) => {
+                this.localStream = stream;
+                // this.onReceiveStream(stream, 'local-video');
+            },
+            error: (e) => {
+                alert('Cant access A/V stream.');
+                console.error(e);
+            }
+        });
+
+        this.startConnection();
     },
     data: () => ({
         peer: null,
         peerID: null,
+        peerStream: null,
+        localStream: null,
         connectedPeers: [],
         targetID: '',
         status: 'Offline.'
@@ -50,16 +64,18 @@ export default {
             const res = await axios.get(url);
             return res.data;
         },
-        async getConnectedPeers(){
+        async getConnectedPeers() {
             const url = `http://${CONN_DETAILS.host}:${CONN_DETAILS.port}/${CONN_DETAILS.key}/peers`;
             const res = await axios.get(url);
             return res.data;
         },
-        connectPeer() {
+        startConnection() {
             const peer = new Peer(this.peerID, {
                 ...CONN_DETAILS,
                 debug: 3
             });
+
+            this.peer = peer;
 
             const checkConnection = async () => {
                 if (peer.disconnected)
@@ -81,9 +97,38 @@ export default {
                 this.status = 'Disconnected.';
             });
 
+            peer.on('call', call => {
+                call.answer(this.localStream);
+
+                call.on('stream', stream => {
+                    this.peerStream = stream;
+                    this.onReceiveStream(stream, 'remote-video');
+                });
+
+                call.on('close', () => {
+                    console.log('Video call ended.')
+                });
+            })
+
+
             window.addEventListener('beforeunload', (e) => {
                 peer.disconnect();
             }, false)
+        },
+        connectToPeer(id) {
+            console.log('Trying to place!');
+            const call = this.peer.call(id, this.localStream);
+            call.on('stream', stream => {
+                this.peerStream = stream;
+                this.onReceiveStream(stream, 'remote-video');
+            });
+        },
+        getLocalMedia(callbacks) {
+            navigator.getUserMedia({audio: true, video: true}, (s) => callbacks.success(s), callbacks.error);
+        },
+        onReceiveStream(stream, elementID) {
+            const video = document.getElementById(elementID);
+            video.srcObject = (stream);
         }
     }
 }
